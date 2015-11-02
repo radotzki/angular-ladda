@@ -3,26 +3,11 @@
  * @author Chungsub Kim <subicura@subicura.com>
  */
 
-/* global Ladda */
-/* exported Ladda */
-(function (root, factory)
-{
-  'use strict';
-  if (typeof define === 'function' && define.amd) {
-    // AMD. Register as an anonymous module.
-    define(['angular', 'ladda'], factory);
-  } else if (typeof module !== 'undefined' && typeof module.exports === 'object') {
-    // CommonJS support (for us webpack/browserify/ComponentJS folks)
-    module.exports = factory(window.angular, require('ladda'));
-  } else {
-    // in the case of no module loading system
-    return factory(root.angular, root.Ladda);
-  }
-}(this, function (angular, Ladda){
+(function (angular, Ladda){
   'use strict';
 
   var moduleName = 'angular-ladda';
-  
+
   angular.module(moduleName, [])
     .provider('ladda', function () {
       var opts = {
@@ -57,7 +42,7 @@
           }
 
           // create ladda button
-          var ladda = Ladda.create( element[0] );
+          var ladda = window.Ladda.create( element[0] );
 
           // add watch!
           scope.$watch(attrs.ladda, function(loading) {
@@ -80,6 +65,6 @@
         }
       };
     }]);
-    
+
   return moduleName;
-}));
+})(window.angular, window.Ladda);
